@@ -53,7 +53,107 @@ const tripsFindByCode = async (req, res) => {
   }
 };
 
+/* POST: /api/trips - creates a new trip */
+const tripsAddTrip = async (req, res) => {
+  try {
+    const newTrip = await Trip.create({
+      code: req.body.code,
+      name: req.body.name,
+      length: req.body.length,
+      start: req.body.start,
+      resort: req.body.resort,
+      perPerson: req.body.perPerson,
+      image: req.body.image,
+      description: req.body.description
+    });
+
+    return res
+      .status(201)
+      .json(newTrip);
+  } catch (err) {
+    return res
+      .status(400)
+      .json({ message: 'Error creating trip', error: err.message });
+  }
+};
+
+/* PUT: /api/trips/:tripCode - updates an existing trip */
+const tripsUpdateTrip = async (req, res) => {
+  try {
+    const tripCode = req.params.tripCode;
+
+    if (!tripCode) {
+      return res
+        .status(400)
+        .json({ message: 'Trip code is required' });
+    }
+
+    const trip = await Trip
+      .findOne({ code: tripCode })
+      .exec();
+
+    if (!trip) {
+      return res
+        .status(404)
+        .json({ message: `Trip not found with code ${tripCode}` });
+    }
+
+    trip.code = req.body.code;
+    trip.name = req.body.name;
+    trip.length = req.body.length;
+    trip.start = req.body.start;
+    trip.resort = req.body.resort;
+    trip.perPerson = req.body.perPerson;
+    trip.image = req.body.image;
+    trip.description = req.body.description;
+
+    const updatedTrip = await trip.save();
+
+    return res
+      .status(200)
+      .json(updatedTrip);
+  } catch (err) {
+    return res
+      .status(400)
+      .json({ message: 'Error updating trip', error: err.message });
+  }
+};
+
+/* DELETE: /api/trips/:tripCode - deletes an existing trip */
+const tripsDeleteTrip = async (req, res) => {
+  try {
+    const tripCode = req.params.tripCode;
+
+    if (!tripCode) {
+      return res
+        .status(400)
+        .json({ message: 'Trip code is required' });
+    }
+
+    const deletedTrip = await Trip
+      .findOneAndDelete({ code: tripCode })
+      .exec();
+
+    if (!deletedTrip) {
+      return res
+        .status(404)
+        .json({ message: `Trip not found with code ${tripCode}` });
+    }
+
+    return res
+      .status(200)
+      .json({ message: `Trip ${tripCode} deleted successfully` });
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: 'Error deleting trip', error: err.message });
+  }
+};
+
 module.exports = {
   tripsList,
-  tripsFindByCode
+  tripsFindByCode,
+  tripsAddTrip,
+  tripsUpdateTrip,
+  tripsDeleteTrip
 };
