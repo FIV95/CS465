@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TripCardComponent } from '../trip-card/trip-card.component';
 
 export class Trip {
   code!: string;
@@ -15,7 +16,7 @@ export class Trip {
 @Component({
   selector: 'app-trip-listing',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TripCardComponent],
   templateUrl: './trip-listing.component.html',
   styleUrl: './trip-listing.component.css'
 })

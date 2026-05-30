@@ -7,17 +7,10 @@
             <h1>Trips</h1>
 
             <ul id="sites">
-              <li *ngFor="let trip of trips">
-                <img src="assets/images/{{ trip.image }}" alt="{{ trip.name }}">
-                <h2>{{ trip.name }}</h2>
-                <p>{{ trip.description }}</p>
-                <p>
-                  <strong>Length:</strong> {{ trip.length }}<br>
-                  <strong>Start:</strong> {{ trip.start }}<br>
-                  <strong>Resort:</strong> {{ trip.resort }}<br>
-                  <strong>Per Person:</strong> ${{ trip.perPerson }}
-                </p>
-              </li>
+              <app-trip-card
+                *ngFor="let trip of trips"
+                [trip]="trip">
+              </app-trip-card>
             </ul>
 
           </div>
