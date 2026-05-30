@@ -5,7 +5,55 @@
         <div>
           <div class="body">
             <h1>Add Trip</h1>
-            <p>Add trip form will go here.</p>
+
+            <form (ngSubmit)="addTrip()">
+              <p>
+                <label>Code</label><br>
+                <input type="text" name="code" [(ngModel)]="newTrip.code" required>
+              </p>
+
+              <p>
+                <label>Name</label><br>
+                <input type="text" name="name" [(ngModel)]="newTrip.name" required>
+              </p>
+
+              <p>
+                <label>Length</label><br>
+                <input type="text" name="length" [(ngModel)]="newTrip.length" required>
+              </p>
+
+              <p>
+                <label>Start Date</label><br>
+                <input type="date" name="start" [(ngModel)]="newTrip.start" required>
+              </p>
+
+              <p>
+                <label>Resort</label><br>
+                <input type="text" name="resort" [(ngModel)]="newTrip.resort" required>
+              </p>
+
+              <p>
+                <label>Per Person</label><br>
+                <input type="text" name="perPerson" [(ngModel)]="newTrip.perPerson" required>
+              </p>
+
+              <p>
+                <label>Image</label><br>
+                <select name="image" [(ngModel)]="newTrip.image" required>
+                  <option value="reef1.jpg">reef1.jpg</option>
+                  <option value="reef2.jpg">reef2.jpg</option>
+                  <option value="reef3.jpg">reef3.jpg</option>
+                </select>
+              </p>
+
+              <p>
+                <label>Description</label><br>
+                <textarea name="description" [(ngModel)]="newTrip.description" required></textarea>
+              </p>
+
+              <button type="submit">Add Trip</button>
+            </form>
+
           </div>
         </div>
       </div>
