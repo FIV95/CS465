@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { TripCardComponent } from '../trip-card/trip-card.component';
+import { TripDataService } from '../services/trip-data.service';
 
 export class Trip {
+  _id?: string;
   code!: string;
   name!: string;
   length!: string;
@@ -20,37 +23,20 @@ export class Trip {
   templateUrl: './trip-listing.component.html',
   styleUrl: './trip-listing.component.css'
 })
-export class TripListingComponent {
-  trips: Trip[] = [
-    {
-      code: 'GALR210214',
-      name: 'Gale Reef',
-      length: '4 nights / 5 days',
-      start: '2024-02-14',
-      resort: 'Emerald Bay, 3 stars',
-      perPerson: '799.00',
-      image: 'reef1.jpg',
-      description: 'Gale Reef - Sed et augue lorem. In sit amet placerat arcu.'
-    },
-    {
-      code: 'DAWR210315',
-      name: 'Dawson’s Reef',
-      length: '4 nights / 5 days',
-      start: '2024-03-15',
-      resort: 'Blue Lagoon, 4 stars',
-      perPerson: '1199.00',
-      image: 'reef2.jpg',
-      description: 'Dawson’s Reef - Integer magna leo, posuere et dignissim vitae.'
-    },
-    {
-      code: 'CLAR210621',
-      name: 'Claire’s Reef',
-      length: '4 nights / 5 days',
-      start: '2024-06-21',
-      resort: 'Coral Sands, 5 stars',
-      perPerson: '1999.00',
-      image: 'reef3.jpg',
-      description: 'Claire’s Reef - Donec sed felis risus. Nulla facilisi.'
-    }
-  ];
+export class TripListingComponent implements OnInit {
+  trips: Trip[] = [];
+
+  constructor(private tripDataService: TripDataService) { }
+
+  ngOnInit(): void {
+    this.tripDataService.getTrips()
+      .subscribe({
+        next: (trips: Trip[]) => {
+          this.trips = trips;
+        },
+        error: (err) => {
+          console.error('Error loading trips:', err);
+        }
+      });
+  }
 }
