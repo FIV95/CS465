@@ -8,4 +8,8 @@
     <strong>Resort:</strong> {{ trip.resort }}<br>
     <strong>Per Person:</strong> ${{ trip.perPerson }}
   </p>
+
+  <p>
+    <a [routerLink]="['/edit-trip', trip.code]">Edit</a>
+  </p>
 </li>
