@@ -9,7 +9,8 @@
             <ul id="sites">
               <app-trip-card
                 *ngFor="let trip of trips"
-                [trip]="trip">
+                [trip]="trip"
+                (deleteRequested)="deleteTrip($event)">
               </app-trip-card>
             </ul>
 

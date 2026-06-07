@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -13,4 +13,9 @@ import { Trip } from '../trip-listing/trip-listing.component';
 })
 export class TripCardComponent {
   @Input() trip!: Trip;
+  @Output() deleteRequested = new EventEmitter<string>();
+
+  public deleteTrip(): void {
+    this.deleteRequested.emit(this.trip.code);
+  }
 }

@@ -39,4 +39,20 @@ export class TripListingComponent implements OnInit {
         }
       });
   }
+
+  public deleteTrip(tripCode: string): void {
+    if (!confirm(`Delete trip ${tripCode}?`)) {
+      return;
+    }
+
+    this.tripDataService.deleteTrip(tripCode)
+      .subscribe({
+        next: () => {
+          this.trips = this.trips.filter(trip => trip.code !== tripCode);
+        },
+        error: (err) => {
+          console.error('Error deleting trip:', err);
+        }
+      });
+  }
 }
