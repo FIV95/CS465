@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { Trip } from '../trip-listing/trip-listing.component';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-trip-card',
@@ -14,6 +15,8 @@ import { Trip } from '../trip-listing/trip-listing.component';
 export class TripCardComponent {
   @Input() trip!: Trip;
   @Output() deleteRequested = new EventEmitter<string>();
+
+  constructor(public authenticationService: AuthenticationService) { }
 
   public deleteTrip(): void {
     this.deleteRequested.emit(this.trip.code);

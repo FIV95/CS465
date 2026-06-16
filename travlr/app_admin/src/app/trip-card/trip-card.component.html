@@ -9,7 +9,7 @@
     <strong>Per Person:</strong> ${{ trip.perPerson }}
   </p>
 
-  <p>
+  <p *ngIf="authenticationService.isLoggedIn()">
     <a [routerLink]="['/edit-trip', trip.code]">Edit</a>
     |
     <button type="button" (click)="deleteTrip()">Delete</button>

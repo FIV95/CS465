@@ -1,6 +1,8 @@
 <nav class="admin-nav">
   <a routerLink="/">Trips List</a>
-  <a routerLink="/add-trip">Add Trip</a>
+  <a routerLink="/add-trip" *ngIf="authenticationService.isLoggedIn()">Add Trip</a>
+  <a routerLink="/login" *ngIf="!authenticationService.isLoggedIn()">Login</a>
+  <button type="button" *ngIf="authenticationService.isLoggedIn()" (click)="logout()">Logout</button>
 </nav>
 
 <router-outlet></router-outlet>
