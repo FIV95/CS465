@@ -9,6 +9,10 @@ router
   .post(authController.register);
 
 router
+  .route('/login')
+  .post(authController.login);
+
+router
   .route('/trips')
   .get(tripsController.tripsList)
   .post(tripsController.tripsAddTrip);
